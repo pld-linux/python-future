@@ -11,7 +11,7 @@ Version:	0.16.0
 Release:	1
 License:	MIT
 Group:		Libraries/Python
-Source0:	https://files.pythonhosted.org/packages/00/2b/8d082ddfed935f3608cc61140df6dcbf0edea1bc3ab52fb6c29ae3e81e85/future-%{version}.tar.gz
+Source0:	https://pypi.python.org/packages/source/f/future/future-%{version}.tar.gz
 # Source0-md5:	3e8e88a2bda48d54b1da7634d04760d7
 URL:		https://python-future.org/
 %if %{with python2}
