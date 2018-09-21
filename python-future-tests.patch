@@ -1,0 +1,37 @@
+# disable network tests
+--- future-0.16.0/tests/test_future/test_standard_library.py.orig	2016-10-27 22:05:38.000000000 +0200
++++ future-0.16.0/tests/test_future/test_standard_library.py	2018-09-14 19:20:53.083784127 +0200
+@@ -320,6 +320,7 @@
+         self.assertTrue(hasattr(builtins, 'tuple'))
+ 
+     # @unittest.skip("ssl support has been stripped out for now ...")
++    @unittest.skip("outdated URL")
+     def test_urllib_request_ssl_redirect(self):
+         """
+         This site redirects to https://...
+@@ -333,6 +334,7 @@
+         # pprint(r.read().decode('utf-8'))
+         self.assertTrue(True)
+ 
++    @unittest.skip("uses network")
+     def test_moves_urllib_request_http(self):
+         """
+         This site (python-future.org) uses plain http (as of 2014-09-23).
+@@ -344,6 +346,7 @@
+         data = r.read()
+         self.assertTrue(b'</html>' in data)
+ 
++    @unittest.skip("uses network")
+     def test_urllib_request_http(self):
+         """
+         This site (python-future.org) uses plain http (as of 2014-09-23).
+--- future-0.16.0/tests/test_future/test_urllibnet.py.orig	2016-10-27 22:05:38.000000000 +0200
++++ future-0.16.0/tests/test_future/test_urllibnet.py	2018-09-20 20:47:37.664472163 +0200
+@@ -37,6 +37,7 @@
+             x = f.read()
+ 
+ 
++@unittest.skip("network")
+ class urlopenNetworkTests(unittest.TestCase):
+     """Tests urllib.reqest.urlopen using the network.
+ 

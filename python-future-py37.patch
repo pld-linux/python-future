@@ -1,0 +1,59 @@
+From 05270673dd1e3e353454dbe12a61bc982eb094c6 Mon Sep 17 00:00:00 2001
+From: Louis Sautier <sautier.louis@gmail.com>
+Date: Mon, 20 Aug 2018 11:17:59 +0200
+Subject: [PATCH 1/2] Make test_bad_status_repr work for Python 3.7
+
+Allow a different representation for the exception.
+---
+ tests/test_future/test_httplib.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/test_future/test_httplib.py b/tests/test_future/test_httplib.py
+index 968e933..a1e2b19 100644
+--- a/tests/test_future/test_httplib.py
++++ b/tests/test_future/test_httplib.py
+@@ -197,7 +197,7 @@ def test_bad_status_repr(self):
+         if not utils.PY3:
+             self.assertEqual(repr(exc), '''BadStatusLine("u\'\'",)''')
+         else:
+-            self.assertEqual(repr(exc), '''BadStatusLine("\'\'",)''')
++            self.assertIn(repr(exc), ('''BadStatusLine("''",)''', '''BadStatusLine("''")'''))
+ 
+     def test_partial_reads(self):
+         # if we have a length, the system knows when to close itself
+
+From 2218d6fb139294a73b00abeb894d31bfc799f07a Mon Sep 17 00:00:00 2001
+From: Louis Sautier <sautier.louis@gmail.com>
+Date: Mon, 20 Aug 2018 12:42:29 +0200
+Subject: [PATCH 2/2] Skip int(x) keyword tests with Python 3.7
+
+The first argument must be positional since
+https://github.com/python/cpython/commit/2e5642422f6234fd8d0c082142b27340e588f96e
+---
+ tests/test_future/test_int.py | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/tests/test_future/test_int.py b/tests/test_future/test_int.py
+index f1d9c5d..9acbd23 100644
+--- a/tests/test_future/test_int.py
++++ b/tests/test_future/test_int.py
+@@ -265,12 +265,17 @@ def test_small_ints(self):
+     def test_no_args(self):
+         self.assertEqual(int(), 0)
+ 
+-    def test_keyword_args(self):
++    @unittest.skipIf(sys.version_info >= (3, 7),
++            "The first parameter must be positional with Python >= 3.7"
++    )
++    def test_x_keyword_arg(self):
+         # Test invoking int() using keyword arguments.
+         self.assertEqual(int(x=1.2), 1)
+-        self.assertEqual(int('100', base=2), 4)
+         self.assertEqual(int(x='100', base=2), 4)
+ 
++    def text_base_keyword_arg(self):
++        self.assertEqual(int('100', base=2), 4)
++
+     def test_newint_plus_float(self):
+         minutes = int(100)
+         second = 0.0
