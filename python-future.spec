@@ -8,16 +8,14 @@
 Summary:	Clean single-source support for Python 3 and 2
 Summary(pl.UTF-8):	Czysta obsługa Pythona 3 i 2 w jednych źródłach
 Name:		python-future
-Version:	0.16.0
+Version:	0.17.0
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/future/
 Source0:	https://files.pythonhosted.org/packages/source/f/future/future-%{version}.tar.gz
-# Source0-md5:	3e8e88a2bda48d54b1da7634d04760d7
-Patch0:		%{name}-py37.patch
-Patch1:		%{name}-div.patch
-Patch2:		%{name}-tests.patch
+# Source0-md5:	d76ae771a06273c0469b90fbe9c1abfa
+Patch0:		%{name}-tests.patch
 URL:		https://python-future.org/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.6
@@ -89,8 +87,6 @@ Dokumentacja API modułu Pythona future.
 %prep
 %setup -q -n future-%{version}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %if %{with python2}
@@ -106,7 +102,7 @@ PYTHONPATH=$(pwd)/build-2/lib \
 %py3_build
 
 %if %{with tests}
-# FIXME: fails with py3.7(?) as of future-0.16.0
+# FIXME: fails with py3.7(?) as of future-0.17.0
 %{__rm} tests/test_past/test_translation.py
 
 PYTHONPATH=$(pwd)/build-3/lib \

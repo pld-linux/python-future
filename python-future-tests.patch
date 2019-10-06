@@ -1,14 +1,24 @@
 # disable network tests
+--- future-0.17.0/tests/test_future/test_requests.py.orig	2019-10-06 11:19:07.248145375 +0200
++++ future-0.17.0/tests/test_future/test_requests.py	2019-10-06 11:19:55.894548502 +0200
+@@ -57,6 +57,7 @@
+     This class tests whether the requests module conflicts with the
+     standard library import hooks, as in issue #19.
+     """
++    @unittest.skip('breaks test_bool2')
+     def test_remove_hooks_then_requests(self):
+         code = """
+             from future import standard_library
+@@ -79,6 +80,7 @@
+             self.assertTrue(True)
+ 
+ 
++    @unittest.skip('uses networks, breaks test_bool2')
+     def test_requests_cm(self):
+         """
+         Tests whether requests can be used importing standard_library modules
 --- future-0.16.0/tests/test_future/test_standard_library.py.orig	2016-10-27 22:05:38.000000000 +0200
 +++ future-0.16.0/tests/test_future/test_standard_library.py	2018-09-14 19:20:53.083784127 +0200
-@@ -320,6 +320,7 @@
-         self.assertTrue(hasattr(builtins, 'tuple'))
- 
-     # @unittest.skip("ssl support has been stripped out for now ...")
-+    @unittest.skip("outdated URL")
-     def test_urllib_request_ssl_redirect(self):
-         """
-         This site redirects to https://...
 @@ -333,6 +334,7 @@
          # pprint(r.read().decode('utf-8'))
          self.assertTrue(True)
