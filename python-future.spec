@@ -8,13 +8,13 @@
 Summary:	Clean single-source support for Python 3 and 2
 Summary(pl.UTF-8):	Czysta obsługa Pythona 3 i 2 w jednych źródłach
 Name:		python-future
-Version:	0.17.1
-Release:	2
+Version:	0.18.2
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/future/
 Source0:	https://files.pythonhosted.org/packages/source/f/future/future-%{version}.tar.gz
-# Source0-md5:	e42113b4b72fabb5273ff88417104913
+# Source0-md5:	e4579c836b9c025872efe230f6270349
 Patch0:		%{name}-tests.patch
 URL:		https://python-future.org/
 %if %{with python2}
@@ -24,6 +24,7 @@ BuildRequires:	python-setuptools
 BuildRequires:	python-argparse
 BuildRequires:	python-importlib
 %if %{with tests}
+BuildRequires:	python-2to3
 BuildRequires:	python-unittest2
 %endif
 %endif
