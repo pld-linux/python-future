@@ -9,7 +9,7 @@ Summary:	Clean single-source support for Python 3 and 2
 Summary(pl.UTF-8):	Czysta obsługa Pythona 3 i 2 w jednych źródłach
 Name:		python-future
 Version:	0.18.2
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/future/
